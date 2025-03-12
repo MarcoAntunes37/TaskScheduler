@@ -25,15 +25,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/api/tasks")
 @RequiredArgsConstructor
+@RequestMapping("/api/tasks")
 public class TaskController {
     private final TaskService taskServices;
 
     @PostMapping
     public ResponseEntity<Task> createTask(
             @RequestBody @Valid NewTaskRequestDto task) {
-        Task newTask = taskServices.saveTask(task);
+        Task newTask = this.taskServices.saveTask(task);
 
         return ResponseEntity
                 .created(URI.create("/api/tasks"))
@@ -48,13 +48,13 @@ public class TaskController {
     }
 
     @GetMapping("/all/{userId}")
-    public ResponseEntity<Page<Task>> getAllTasksByUserId(
+    public ResponseEntity<Page<Task>> getAllTasks(
             @PathVariable String userId,
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam String sortBy,
             @RequestParam String sortDirection) {
-        Page<Task> tasks = taskServices.getAllTasksByUserId(
+        Page<Task> tasks = taskServices.getAllTasks(
                 UUID.fromString(userId),
                 page,
                 size,
@@ -65,14 +65,14 @@ public class TaskController {
     }
 
     @GetMapping("/all/{userId}/filtered")
-    public ResponseEntity<Page<Task>> getAllTasksByUserIdFiltered(
+    public ResponseEntity<Page<Task>> getAllTasksFiltered(
             @PathVariable String userId,
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam String searchTerm,
             @RequestParam String sortBy,
             @RequestParam String sortDirection) {
-        Page<Task> tasks = taskServices.getAllTasksByUserIdFiltered(
+        Page<Task> tasks = taskServices.getAllTasksFiltered(
                 UUID.fromString(userId),
                 page,
                 size,

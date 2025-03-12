@@ -13,15 +13,14 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 
 import taskScheduller.api.domain.task.NewTaskRequestDto;
 import taskScheduller.api.domain.task.Task;
@@ -29,16 +28,13 @@ import taskScheduller.api.domain.task.UpdateTaskRequestDto;
 import taskScheduller.api.repository.TaskRepository;
 import taskScheduller.api.service.TaskService;
 
-@ExtendWith(MockitoExtension.class)
-public class TaskServiceTest {
-    @InjectMocks
-    private TaskService taskServices;
-
+@ActiveProfiles("test")
+class TaskServiceTest {
     @Mock
     private TaskRepository repository;
 
-    // @Mock
-    // private TaskMapper mapper;
+    @InjectMocks
+    private TaskService taskServices;
 
     UUID userId = UUID.randomUUID();
 
@@ -79,19 +75,17 @@ public class TaskServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         taskServices = new TaskService(repository);
+
     }
 
-    // @Test
-    // public void shouldAddTask() {
-    // when(repository.save(task)).thenReturn(task);
+    @Test
+    public void shouldAddTask() {
+        when(repository.save(any(Task.class))).thenReturn(task);
 
-    // Task savedTask = taskServices.saveTask(newTask);
+        taskServices.saveTask(newTask);
 
-    // assertNotNull(savedTask);
-
-    // verify(repository, times(1)).save(any(Task.class));
-
-    // }
+        verify(repository, times(1)).save(any(Task.class));
+    }
 
     @Test
     public void shouldGetTaskById() {
@@ -140,26 +134,26 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void shouldReturnAllTasksByUserId() {
+    public void shouldReturnAllTasks() {
 
         Page<Task> page = new PageImpl<>(List.of(testTask1, testTask2));
 
-        when(taskServices.getAllTasksByUserId(userId, 0, 10, "id", "asc")).thenReturn(page);
+        when(taskServices.getAllTasks(userId, 0, 10, "id", "asc")).thenReturn(page);
 
-        taskServices.getAllTasksByUserId(userId, 0, 10, "id", "asc");
+        taskServices.getAllTasks(userId, 0, 10, "id", "asc");
 
         verify(repository).findAllByUserId(userId, PageRequest.of(0, 10, Sort.by("id").ascending()));
     }
 
     @Test
-    public void shouldReturnEmptyAllTasksByUserId() {
+    public void shouldReturnEmptyAllTasks() {
         UUID userId = UUID.randomUUID();
 
         Page<Task> page = new PageImpl<>(List.of());
 
-        when(taskServices.getAllTasksByUserId(userId, 0, 10, "id", "asc")).thenReturn(page);
+        when(taskServices.getAllTasks(userId, 0, 10, "id", "asc")).thenReturn(page);
 
-        taskServices.getAllTasksByUserId(userId, 0, 10, "id", "asc");
+        taskServices.getAllTasks(userId, 0, 10, "id", "asc");
 
         verify(repository).findAllByUserId(userId, PageRequest.of(0, 10, Sort.by("id").ascending()));
     }
@@ -168,9 +162,9 @@ public class TaskServiceTest {
     public void shouldReturnAllTasksFiltered() {
         Page<Task> page = new PageImpl<>(List.of(testTask2));
 
-        when(taskServices.getAllTasksByUserIdFiltered(userId, 0, 10, "a", "id", "asc")).thenReturn(page);
+        when(taskServices.getAllTasksFiltered(userId, 0, 10, "a", "id", "asc")).thenReturn(page);
 
-        taskServices.getAllTasksByUserIdFiltered(userId, 0, 10, "a", "id", "asc");
+        taskServices.getAllTasksFiltered(userId, 0, 10, "a", "id", "asc");
 
         verify(repository).findAllByUserIdFiltered(userId, PageRequest.of(0, 10, Sort.by("id").ascending()), "a");
     }
@@ -181,9 +175,9 @@ public class TaskServiceTest {
 
         Page<Task> page = new PageImpl<>(List.of());
 
-        when(taskServices.getAllTasksByUserIdFiltered(userId, 0, 10, "a", "id", "asc")).thenReturn(page);
+        when(taskServices.getAllTasksFiltered(userId, 0, 10, "a", "id", "asc")).thenReturn(page);
 
-        taskServices.getAllTasksByUserIdFiltered(userId, 0, 10, "a", "id", "asc");
+        taskServices.getAllTasksFiltered(userId, 0, 10, "a", "id", "asc");
 
         verify(repository).findAllByUserIdFiltered(userId, PageRequest.of(0, 10, Sort.by("id").ascending()), "a");
     }

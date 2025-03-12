@@ -20,4 +20,12 @@ public interface TaskMapper {
         })
         Task toEntity(NewTaskRequestDto dto);
 
+        @Mappings({
+                        @Mapping(source = "entity.userId", target = "userId"),
+                        @Mapping(source = "entity.title", target = "title"),
+                        @Mapping(source = "entity.description", target = "description"),
+                        @Mapping(source = "entity.priority", target = "priority"),
+                        @Mapping(source = "entity.status", target = "status")
+        })
+        NewTaskRequestDto toDto(Task entity);
 }

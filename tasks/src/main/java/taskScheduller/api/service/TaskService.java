@@ -2,12 +2,16 @@ package taskScheduller.api.service;
 
 import java.util.UUID;
 
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import taskScheduller.api.domain.task.NewTaskRequestDto;
 import taskScheduller.api.domain.task.Task;
 import taskScheduller.api.domain.task.UpdateTaskRequestDto;
@@ -15,18 +19,21 @@ import taskScheduller.api.mapper.TaskMapper;
 import taskScheduller.api.repository.TaskRepository;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository repository;
 
-    private TaskMapper mapper;
+    @Autowired
+    private TaskMapper mapper = Mappers.getMapper(TaskMapper.class);
 
     public Task saveTask(NewTaskRequestDto task) {
         Task newTask = mapper.toEntity(task);
+
         try {
             return repository.save(newTask);
         } catch (Exception e) {
-            throw new RuntimeException("Error saving task to database: {0}", e);
+            throw new PersistenceException("Error saving task to database: {0}", e);
         }
     }
 
@@ -40,7 +47,7 @@ public class TaskService {
     public void deleteTask(UUID id) {
         boolean exists = repository.existsById(id);
         if (!exists) {
-            throw new RuntimeException("Task not found");
+            throw new IllegalArgumentException("Task not found");
         }
         try {
             repository.deleteById(id);
@@ -75,7 +82,7 @@ public class TaskService {
         }
     }
 
-    public Page<Task> getAllTasksByUserId(UUID userId, int page, int size, String sortBy, String sortDirection) {
+    public Page<Task> getAllTasks(UUID userId, int page, int size, String sortBy, String sortDirection) {
         Sort sort = sortDirection.equals("desc")
                 ? Sort.by(sortBy).descending()
                 : Sort.by(sortBy).ascending();
@@ -87,7 +94,7 @@ public class TaskService {
         return tasks;
     }
 
-    public Page<Task> getAllTasksByUserIdFiltered(UUID userId, int page, int size, String searchTerm, String sortBy,
+    public Page<Task> getAllTasksFiltered(UUID userId, int page, int size, String searchTerm, String sortBy,
             String sortDirection) {
         Sort sort = sortDirection.equals("desc")
                 ? Sort.by(sortBy).descending()

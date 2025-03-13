@@ -2,9 +2,9 @@ package com.services.tasks.integration.task;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import taskScheduller.api.TasksApplication;
-import taskScheduller.api.domain.task.NewTaskRequestDto;
-import taskScheduller.api.domain.task.UpdateTaskRequestDto;
+import taskscheduller.api.TasksApplication;
+import taskscheduller.api.domain.task.NewTaskRequestDto;
+import taskscheduller.api.domain.task.UpdateTaskRequestDto;
 
 import java.util.UUID;
 

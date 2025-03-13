@@ -22,11 +22,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
-import taskScheduller.api.domain.task.NewTaskRequestDto;
-import taskScheduller.api.domain.task.Task;
-import taskScheduller.api.domain.task.UpdateTaskRequestDto;
-import taskScheduller.api.repository.TaskRepository;
-import taskScheduller.api.service.TaskService;
+import taskscheduller.api.domain.task.NewTaskRequestDto;
+import taskscheduller.api.domain.task.Task;
+import taskscheduller.api.domain.task.UpdateTaskRequestDto;
+import taskscheduller.api.repository.TaskRepository;
+import taskscheduller.api.service.TaskService;
 
 @ActiveProfiles("test")
 class TaskServiceTest {

@@ -1,4 +1,4 @@
-package taskScheduller.api.config;
+package taskscheduller.api.config;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;

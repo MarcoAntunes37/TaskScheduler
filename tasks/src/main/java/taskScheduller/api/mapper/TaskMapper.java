@@ -1,10 +1,10 @@
-package taskScheduller.api.mapper;
+package taskscheduller.api.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 
-import taskScheduller.api.domain.task.NewTaskRequestDto;
-import taskScheduller.api.domain.task.Task;
+import taskscheduller.api.domain.task.NewTaskRequestDto;
+import taskscheduller.api.domain.task.Task;
 
 import org.mapstruct.Mapping;
 

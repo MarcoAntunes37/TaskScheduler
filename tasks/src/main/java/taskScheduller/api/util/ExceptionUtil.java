@@ -1,4 +1,4 @@
-package taskScheduller.api.util;
+package taskscheduller.api.util;
 
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import jakarta.servlet.http.HttpServletRequest;
-import taskScheduller.api.exception.ProblemDetails;
+import taskscheduller.api.exception.ProblemDetails;
 
 public final class ExceptionUtil {
 

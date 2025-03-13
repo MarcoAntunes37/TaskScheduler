@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import taskScheduller.api.TasksApplication;
+import taskscheduller.api.TasksApplication;
 
 @SpringBootTest(classes = TasksApplication.class)
 @ActiveProfiles("test")

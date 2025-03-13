@@ -1,4 +1,4 @@
-package taskScheduller.api.repository;
+package taskscheduller.api.repository;
 
 import java.util.UUID;
 
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import taskScheduller.api.domain.task.Task;
+import taskscheduller.api.domain.task.Task;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, UUID> {

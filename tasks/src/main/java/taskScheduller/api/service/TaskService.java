@@ -1,4 +1,4 @@
-package taskScheduller.api.service;
+package taskscheduller.api.service;
 
 import java.util.UUID;
 
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import taskScheduller.api.domain.task.NewTaskRequestDto;
-import taskScheduller.api.domain.task.Task;
-import taskScheduller.api.domain.task.UpdateTaskRequestDto;
-import taskScheduller.api.mapper.TaskMapper;
-import taskScheduller.api.repository.TaskRepository;
+import taskscheduller.api.domain.task.NewTaskRequestDto;
+import taskscheduller.api.domain.task.Task;
+import taskscheduller.api.domain.task.UpdateTaskRequestDto;
+import taskscheduller.api.mapper.TaskMapper;
+import taskscheduller.api.repository.TaskRepository;
 
 @Service
 @Slf4j

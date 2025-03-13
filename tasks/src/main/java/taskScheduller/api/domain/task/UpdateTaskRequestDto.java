@@ -1,4 +1,4 @@
-package taskScheduller.api.domain.task;
+package taskscheduller.api.domain.task;
 
 import jakarta.validation.constraints.NotNull;
 

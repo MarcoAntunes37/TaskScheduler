@@ -1,4 +1,4 @@
-package taskScheduller.api.exception;
+package taskscheduller.api.exception;
 
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import taskScheduller.api.util.ExceptionUtil;
-
 import jakarta.servlet.http.HttpServletRequest;
+import taskscheduller.api.util.ExceptionUtil;
 
 @ControllerAdvice
 public class ApiExceptionHandler {

@@ -1,9 +1,4 @@
-package taskScheduller.api.controller;
-
-import taskScheduller.api.domain.task.NewTaskRequestDto;
-import taskScheduller.api.domain.task.Task;
-import taskScheduller.api.domain.task.UpdateTaskRequestDto;
-import taskScheduller.api.service.TaskService;
+package taskscheduller.api.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import taskscheduller.api.domain.task.NewTaskRequestDto;
+import taskscheduller.api.domain.task.Task;
+import taskscheduller.api.domain.task.UpdateTaskRequestDto;
+import taskscheduller.api.service.TaskService;
 
 import java.net.URI;
 import java.util.UUID;

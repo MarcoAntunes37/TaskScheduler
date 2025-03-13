@@ -1,4 +1,4 @@
-package taskScheduller.api.exception;
+package taskscheduller.api.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

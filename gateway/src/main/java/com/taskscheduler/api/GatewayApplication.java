@@ -1,4 +1,4 @@
-package com.services.gateway;
+package com.taskscheduler.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.services.gateway;
+package com.taskscheduler.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

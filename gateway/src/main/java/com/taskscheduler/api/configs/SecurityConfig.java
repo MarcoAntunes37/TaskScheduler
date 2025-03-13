@@ -1,4 +1,4 @@
-package com.services.gateway.configs;
+package com.taskscheduler.api.configs;
 
 import java.util.List;
 

@@ -9,8 +9,8 @@
 		<version>3.4.3</version>
 		<relativePath />
 	</parent>
-	<groupId>com.services</groupId>
-	<artifactId>gateway</artifactId>
+	<groupId>com.taskscheduler</groupId>
+    <artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gateway</name>
 	<description>Demo project for Spring Boot</description>

@@ -1,4 +1,4 @@
-package com.services.gateway.routes;
+package com.taskscheduler.api.routes;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.server.mvc.filter.CircuitBreakerFilterFunctions;

@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: ${TASK_DB_PASSWORD}
       POSTGRES_DB: ${TASK_DB_NAME}
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./data/task-db:/var/lib/postgresql/data
 
   keycloak:
     container_name: keycloak
@@ -46,3 +46,16 @@ services:
       POSTGRES_DB: ${KEYCLOAK_DB_NAME}
     volumes:
       - ./data/keycloak-db:/var/lib/postgresql/data
+
+  scheduler-db:
+    image: postgres:17
+    container_name: scheduler-db
+    hostname: scheduler-db
+    ports:
+      - ${SCHEDULER_DB_HOST_PORT}:${SCHEDULER_DB_CONTAINER_PORT}
+    environment:
+      POSTGRES_USER: ${SCHEDULER_DB_USER}
+      POSTGRES_PASSWORD: ${SCHEDULER_DB_PASSWORD}
+      POSTGRES_DB: ${SCHEDULER_DB_NAME}
+    volumes:
+      - ./data/scheduler-db:/var/lib/postgresql/data

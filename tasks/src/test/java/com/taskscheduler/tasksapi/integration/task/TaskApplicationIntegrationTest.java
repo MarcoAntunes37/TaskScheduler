@@ -22,7 +22,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(classes = TasksApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TaskApplicationIntegrationTest {
-
         @SuppressWarnings({ "rawtypes", "resource" })
         @ServiceConnection
         static PostgreSQLContainer<?> pgSqlContainer = new PostgreSQLContainer("postgres:17")

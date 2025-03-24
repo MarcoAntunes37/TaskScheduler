@@ -64,6 +64,8 @@ public class ScheduleService {
 
         List<Schedule> existingSchedules = schedulerRepository.findAllByUserId(existingSchedule.getUserId());
 
+        existingSchedules.removeIf(s -> s.getId().equals(id));
+
         ScheduleUtil.validateScheduleRoutine(existingSchedule, existingSchedules);
 
         try {

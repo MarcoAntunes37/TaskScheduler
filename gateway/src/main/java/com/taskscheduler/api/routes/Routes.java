@@ -22,6 +22,9 @@ public class Routes {
         @Value("${task.service.url}")
         private String taskServiceUrl;
 
+        @Value("${scheduler.service.url}")
+        private String schedulerServiceUrl;
+
         @Bean
         public RouterFunction<ServerResponse> taskServiceRouter() {
                 return GatewayRouterFunctions.route("task_service")
@@ -37,6 +40,27 @@ public class Routes {
                                 .route(RequestPredicates.path("/aggregate/task-service/v3/api-docs"),
                                                 HandlerFunctions.http(taskServiceUrl))
                                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("taskServiceSwaggerCircuitBreaker",
+                                                URI.create("forward:/fallbackRoute")))
+                                .filter(setPath("/api-docs"))
+                                .build();
+        }
+
+        @Bean
+        public RouterFunction<ServerResponse> schedulerServiceRouter() {
+                return GatewayRouterFunctions.route("scheduler_service")
+                                .route(RequestPredicates.path("/api/scheduler/**"),
+                                                HandlerFunctions.http(schedulerServiceUrl))
+                                .filter(CircuitBreakerFilterFunctions.circuitBreaker("schedulerServiceCircuitBreaker",
+                                                URI.create("forward:/fallbackRoute")))
+                                .build();
+        }
+
+        @Bean
+        public RouterFunction<ServerResponse> schedulerServiceSwaggerRoute() {
+                return GatewayRouterFunctions.route("scheduler_service_swagger")
+                                .route(RequestPredicates.path("/aggregate/scheduler-service/v3/api-docs"),
+                                                HandlerFunctions.http(schedulerServiceUrl))
+                                .filter(CircuitBreakerFilterFunctions.circuitBreaker("schedulerServiceSwaggerCircuitBreaker",
                                                 URI.create("forward:/fallbackRoute")))
                                 .filter(setPath("/api-docs"))
                                 .build();

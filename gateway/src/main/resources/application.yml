@@ -25,6 +25,10 @@ management:
 task:
    service:
       url: http://localhost:8080
+      
+scheudler:
+   service:
+      url: http://localhost:8081
 
 server: 
    port: 9000

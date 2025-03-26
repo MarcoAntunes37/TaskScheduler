@@ -49,7 +49,7 @@ public class TaskController {
 
     @GetMapping("/all/{userId}")
     public ResponseEntity<Page<Task>> getAllTasks(
-        @PathVariable UUID userId,
+            @PathVariable UUID userId,
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam String sortBy,
@@ -86,7 +86,7 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateTaskById(
             @PathVariable UUID id,
-            @RequestBody UpdateTaskRequestDto entity) {
+            @Valid @RequestBody UpdateTaskRequestDto entity) {
         taskServices.updateTask(id, entity);
         return ResponseEntity.ok("Task updated successfully");
     }

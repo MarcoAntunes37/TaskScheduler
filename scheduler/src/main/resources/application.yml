@@ -1,4 +1,8 @@
 spring:
+  rabbitmq: 
+    host: localhost
+    username: admin
+    password: admin
   application:
     name: Schedulerservice
   datasource:

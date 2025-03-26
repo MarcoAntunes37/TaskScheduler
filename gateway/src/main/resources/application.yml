@@ -26,7 +26,7 @@ task:
    service:
       url: http://localhost:8080
       
-scheudler:
+scheduler:
    service:
       url: http://localhost:8081
 

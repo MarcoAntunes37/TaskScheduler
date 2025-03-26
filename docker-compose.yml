@@ -59,3 +59,18 @@ services:
       POSTGRES_DB: ${SCHEDULER_DB_NAME}
     volumes:
       - ./data/scheduler-db:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - ${RABBITMQ_HOST_PORT}:${RABBITMQ_CONTAINER_PORT}
+      - ${RABBITMQ_MANAGEMENT_HOST_PORT}:${RABBITMQ_MANAGEMENT_CONTAINER_PORT}
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    command: >
+      sh -c "rabbitmq-server"
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq

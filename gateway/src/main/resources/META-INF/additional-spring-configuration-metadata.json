@@ -5,8 +5,8 @@
     "description": "A description for 'task.service.url'"
   },
   {
-    "name": "scheudler.service.url",
+    "name": "scheduler.service.url",
     "type": "java.lang.String",
-    "description": "A description for 'scheudler.service.url'"
+    "description": "A description for 'scheduler.service.url'"
   }
 ]}

@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
 import com.taskscheduler.schedulerapi.domain.Schedule;
+import com.taskscheduler.schedulerapi.domain.TaskExistsRequest;
 import com.taskscheduler.schedulerapi.domain.UpdateScheduleRequestDTO;
 import com.taskscheduler.schedulerapi.mapper.ScheduleMapper;
+import com.taskscheduler.schedulerapi.producers.TaskProducer;
 import com.taskscheduler.schedulerapi.repository.ScheduleRepository;
 import com.taskscheduler.schedulerapi.util.ScheduleUtil;
 
@@ -30,17 +32,28 @@ public class ScheduleService {
     @Autowired
     private ScheduleMapper mapper = Mappers.getMapper(ScheduleMapper.class);
 
+    @Autowired
+    private TaskProducer taskProducer;
+
     public Schedule getScheduleById(UUID id) {
         Schedule schedule = schedulerRepository.findById(id).orElse(null);
 
         if (schedule == null)
-            throw new IllegalArgumentException("Schedule not found");
+            throw new IllegalArgumentException("Schedule not found.");
 
         return schedule;
     }
 
     public Schedule createSchedule(NewScheduleRequestDTO schedule) {
         Schedule scheduleEntity = mapper.toEntity(schedule);
+        
+        TaskExistsRequest taskExistsRequest = new TaskExistsRequest(scheduleEntity.getTaskId());
+
+        boolean taskExists = taskProducer.checkTaskExists(taskExistsRequest);
+
+        if (!taskExists) {
+            throw new IllegalArgumentException("Task not found.");
+        }
 
         List<Schedule> existingSchedules = schedulerRepository.findAllByUserId(scheduleEntity.getUserId());
 
@@ -56,7 +69,7 @@ public class ScheduleService {
 
     public Schedule updateSchedule(UUID id, UpdateScheduleRequestDTO schedule) {
         Schedule existingSchedule = schedulerRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Schedule not found"));
+                () -> new IllegalArgumentException("Schedule not found."));
 
         existingSchedule.setStartTime(schedule.startTime());
 
@@ -79,7 +92,7 @@ public class ScheduleService {
 
     public void deleteScheduleById(UUID id) {
         if (schedulerRepository.findById(id).isEmpty())
-            throw new IllegalArgumentException("Schedule not found");
+            throw new IllegalArgumentException("Schedule not found.");
 
         schedulerRepository.deleteById(id);
     }
@@ -100,7 +113,7 @@ public class ScheduleService {
         Schedule schedule = schedulerRepository.findById(userId).orElse(null);
 
         if (schedule == null)
-            throw new IllegalArgumentException("Schedule not found");
+            throw new IllegalArgumentException("Schedule not found.");
 
         return schedulerRepository.findAllByUserId(userId);
     }

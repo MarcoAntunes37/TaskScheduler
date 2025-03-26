@@ -17,12 +17,4 @@ public interface ScheduleMapper {
             @Mapping(target = "endTime", source = "endTime")
     })
     Schedule toEntity(NewScheduleRequestDTO dto);
-
-    // @Mappings({
-    //         @Mapping(target = "entity.userId", source = "userId"),
-    //         @Mapping(target = "entity.taskId", source = "taskId"),
-    //         @Mapping(target = "entity.startTime", source = "startTime"),
-    //         @Mapping(target = "entity.endTime", source = "endTime")
-    // })
-    // NewScheduleRequestDTO toDto(Schedule entity);
 }

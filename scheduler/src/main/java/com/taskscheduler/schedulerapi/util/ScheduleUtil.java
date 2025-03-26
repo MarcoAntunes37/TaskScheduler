@@ -2,7 +2,7 @@ package com.taskscheduler.schedulerapi.util;
 
 import java.util.List;
 
-import com.taskscheduler.schedulerapi.domain.Schedule;
+import com.taskscheduler.schedulerapi.domain.schedule.Schedule;
 
 public final class ScheduleUtil {
     private ScheduleUtil() {

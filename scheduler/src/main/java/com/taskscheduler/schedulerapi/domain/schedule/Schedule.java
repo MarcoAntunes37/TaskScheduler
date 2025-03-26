@@ -1,4 +1,4 @@
-package com.taskscheduler.schedulerapi.domain;
+package com.taskscheduler.schedulerapi.domain.schedule;
 
 import jakarta.persistence.Id;
 

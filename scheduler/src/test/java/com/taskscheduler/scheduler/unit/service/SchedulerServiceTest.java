@@ -23,9 +23,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
-import com.taskscheduler.schedulerapi.domain.Schedule;
-import com.taskscheduler.schedulerapi.domain.UpdateScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.NewScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.Schedule;
+import com.taskscheduler.schedulerapi.domain.schedule.UpdateScheduleRequestDTO;
 import com.taskscheduler.schedulerapi.repository.ScheduleRepository;
 import com.taskscheduler.schedulerapi.service.ScheduleService;
 
@@ -80,6 +80,7 @@ public class SchedulerServiceTest {
                         .build();
 
         UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                        UUID.randomUUID(),
                         startTime2026March14H19M0S0N0Ominus3,
                         endTime2026March14H20M0S0N0Ominus3);
 
@@ -245,6 +246,7 @@ public class SchedulerServiceTest {
         @Test
         public void shouldFailUpdateScheduleWhenStartTimeIsNull() {
                 UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                                UUID.randomUUID(),
                                 null,
                                 endTime2026March14H20M0S0N0Ominus3);
 
@@ -258,6 +260,7 @@ public class SchedulerServiceTest {
         @Test
         public void shouldFailUpdateScheduleWhenStartTimeIsPast() {
                 UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                                UUID.randomUUID(),
                                 startTimePast,
                                 endTime2026March14H20M0S0N0Ominus3);
 
@@ -271,6 +274,7 @@ public class SchedulerServiceTest {
         @Test
         public void shouldFailUpdateScheduleWhenEndTimeIsNull() {
                 UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                                UUID.randomUUID(),
                                 startTime2026March14H19M0S0N0Ominus3,
                                 null);
 
@@ -284,6 +288,7 @@ public class SchedulerServiceTest {
         @Test
         public void shouldFailUpdateScheduleWhenEndTimeIsPast() {
                 UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                                UUID.randomUUID(),
                                 startTime2026March14H19M0S0N0Ominus3,
                                 endTimePast);
 
@@ -297,6 +302,7 @@ public class SchedulerServiceTest {
         @Test
         public void shouldFailToUpdateScheduleWhenEndTimeIsBeforeStartTime() {
                 UpdateScheduleRequestDTO UpdateScheduleRequestDTO = new UpdateScheduleRequestDTO(
+                                UUID.randomUUID(),
                                 endTime2026March14H20M0S0N0Ominus3,
                                 startTime2026March14H19M0S0N0Ominus3);
 

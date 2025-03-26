@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
-import com.taskscheduler.schedulerapi.domain.Schedule;
-import com.taskscheduler.schedulerapi.domain.UpdateScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.NewScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.Schedule;
+import com.taskscheduler.schedulerapi.domain.schedule.UpdateScheduleRequestDTO;
 import com.taskscheduler.schedulerapi.service.ScheduleService;
 
 import jakarta.validation.Valid;

@@ -21,8 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.taskscheduler.schedulerapi.controller.ScheduleController;
-import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
-import com.taskscheduler.schedulerapi.domain.Schedule;
+import com.taskscheduler.schedulerapi.domain.schedule.NewScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.Schedule;
 import com.taskscheduler.schedulerapi.service.ScheduleService;
 
 @RunWith(SpringRunner.class)

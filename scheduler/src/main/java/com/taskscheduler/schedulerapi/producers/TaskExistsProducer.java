@@ -4,15 +4,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.taskscheduler.schedulerapi.domain.TaskExistsRequest;
-import com.taskscheduler.schedulerapi.domain.TaskExistsResponse;
+import com.taskscheduler.schedulerapi.domain.events.TaskExistsRequest;
+import com.taskscheduler.schedulerapi.domain.events.TaskExistsResponse;
 
 import groovy.util.logging.Slf4j;
 
 @Service
 @Slf4j
-public class TaskProducer {
-
+public class TaskExistsProducer {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
@@ -23,6 +22,7 @@ public class TaskProducer {
                             "task.exists.exchange",
                             "task.exists.routing.key",
                             request);
+
             if (response instanceof TaskExistsResponse) {
                 TaskExistsResponse taskExistsResponse = (TaskExistsResponse) response;
                 return taskExistsResponse.getExists();

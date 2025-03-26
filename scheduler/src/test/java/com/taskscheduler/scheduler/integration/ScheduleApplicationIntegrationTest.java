@@ -14,8 +14,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 import io.restassured.path.json.JsonPath;
 import com.taskscheduler.schedulerapi.SchedulerApplication;
-import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
-import com.taskscheduler.schedulerapi.domain.UpdateScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.NewScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.UpdateScheduleRequestDTO;
 
 import io.restassured.RestAssured;
 
@@ -198,9 +198,9 @@ public class ScheduleApplicationIntegrationTest {
                 OffsetDateTime newEndTime = OffsetDateTime.now().plusHours(2);
                 OffsetDateTime updateStartTime = OffsetDateTime.now().plusHours(1).plusDays(1);
                 OffsetDateTime updateEndTime = OffsetDateTime.now().plusHours(2).plusDays(1);
-
+                UUID taskId = UUID.randomUUID();
                 NewScheduleRequestDTO dto = new NewScheduleRequestDTO(
-                                UUID.randomUUID(),
+                                taskId,
                                 UUID.randomUUID(),
                                 newStartTime,
                                 newEndTime);
@@ -219,6 +219,7 @@ public class ScheduleApplicationIntegrationTest {
                 JsonPath jsonPathPost = new JsonPath(responseBodyStringPost);
 
                 UpdateScheduleRequestDTO updateSchedule = new UpdateScheduleRequestDTO(
+                                taskId,
                                 updateStartTime,
                                 updateEndTime);
 

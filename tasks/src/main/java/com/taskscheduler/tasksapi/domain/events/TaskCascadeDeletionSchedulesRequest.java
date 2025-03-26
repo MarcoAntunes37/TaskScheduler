@@ -1,14 +1,14 @@
-package com.taskscheduler.schedulerapi.domain;
+package com.taskscheduler.tasksapi.domain.events;
 
 import java.util.UUID;
 
-public class TaskExistsRequest {
+public class TaskCascadeDeletionSchedulesRequest {
     private UUID taskId;
 
-    public TaskExistsRequest() {
+    public TaskCascadeDeletionSchedulesRequest() {
     }
 
-    public TaskExistsRequest(UUID taskId) {
+    public TaskCascadeDeletionSchedulesRequest(UUID taskId) {
         this.taskId = taskId;
     }
 

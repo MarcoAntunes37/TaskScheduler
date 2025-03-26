@@ -1,4 +1,4 @@
-package com.taskscheduler.schedulerapi.config;
+package com.taskscheduler.tasksapi.config;
 
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

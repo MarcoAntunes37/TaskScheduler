@@ -1,0 +1,8 @@
+.env
+/data/keycloak-db
+/data/keycloak
+/data/scheduler-db
+/data/task-db
+/data/rabbitmq
+.vscode
+notes.md

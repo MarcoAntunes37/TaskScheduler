@@ -1,4 +1,4 @@
-package com.taskscheduler.schedulerapi.domain;
+package com.taskscheduler.schedulerapi.domain.events;
 
 public class TaskExistsResponse {
     private boolean exists;

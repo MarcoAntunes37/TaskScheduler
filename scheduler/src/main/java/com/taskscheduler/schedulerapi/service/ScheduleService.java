@@ -10,13 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.taskscheduler.schedulerapi.domain.NewScheduleRequestDTO;
-import com.taskscheduler.schedulerapi.domain.Schedule;
-import com.taskscheduler.schedulerapi.domain.TaskExistsRequest;
-import com.taskscheduler.schedulerapi.domain.UpdateScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.events.TaskExistsRequest;
+import com.taskscheduler.schedulerapi.domain.schedule.NewScheduleRequestDTO;
+import com.taskscheduler.schedulerapi.domain.schedule.Schedule;
+import com.taskscheduler.schedulerapi.domain.schedule.UpdateScheduleRequestDTO;
 import com.taskscheduler.schedulerapi.mapper.ScheduleMapper;
-import com.taskscheduler.schedulerapi.producers.TaskProducer;
+import com.taskscheduler.schedulerapi.producers.TaskExistsProducer;
 import com.taskscheduler.schedulerapi.repository.ScheduleRepository;
 import com.taskscheduler.schedulerapi.util.ScheduleUtil;
 
@@ -33,7 +34,7 @@ public class ScheduleService {
     private ScheduleMapper mapper = Mappers.getMapper(ScheduleMapper.class);
 
     @Autowired
-    private TaskProducer taskProducer;
+    private TaskExistsProducer taskProducer;
 
     public Schedule getScheduleById(UUID id) {
         Schedule schedule = schedulerRepository.findById(id).orElse(null);
@@ -46,7 +47,7 @@ public class ScheduleService {
 
     public Schedule createSchedule(NewScheduleRequestDTO schedule) {
         Schedule scheduleEntity = mapper.toEntity(schedule);
-        
+
         TaskExistsRequest taskExistsRequest = new TaskExistsRequest(scheduleEntity.getTaskId());
 
         boolean taskExists = taskProducer.checkTaskExists(taskExistsRequest);
@@ -70,6 +71,16 @@ public class ScheduleService {
     public Schedule updateSchedule(UUID id, UpdateScheduleRequestDTO schedule) {
         Schedule existingSchedule = schedulerRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Schedule not found."));
+
+        TaskExistsRequest taskExistsRequest = new TaskExistsRequest(schedule.taskId());
+
+        boolean taskExists = taskProducer.checkTaskExists(taskExistsRequest);
+
+        if (!taskExists) {
+            throw new IllegalArgumentException("Task not found.");
+        }
+
+        existingSchedule.setTaskId(schedule.taskId());
 
         existingSchedule.setStartTime(schedule.startTime());
 
@@ -95,6 +106,14 @@ public class ScheduleService {
             throw new IllegalArgumentException("Schedule not found.");
 
         schedulerRepository.deleteById(id);
+    }
+
+    
+    @Transactional
+    public Integer deleteAllSchedulesByTaskId(UUID taskId) {
+        Integer response = schedulerRepository.deleteAllByTaskId(taskId);
+
+        return response;
     }
 
     public Page<Schedule> getAllSchedules(

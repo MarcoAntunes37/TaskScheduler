@@ -1,4 +1,4 @@
-package com.taskscheduler.schedulerapi.domain;
+package com.taskscheduler.schedulerapi.domain.schedule;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;

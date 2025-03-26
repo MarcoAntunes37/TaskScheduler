@@ -9,10 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.taskscheduler.tasksapi.domain.events.TaskCascadeDeletionSchedulesRequest;
 import com.taskscheduler.tasksapi.domain.task.NewTaskRequestDto;
 import com.taskscheduler.tasksapi.domain.task.Task;
 import com.taskscheduler.tasksapi.domain.task.UpdateTaskRequestDto;
 import com.taskscheduler.tasksapi.mapper.TaskMapper;
+import com.taskscheduler.tasksapi.producers.TaskCascadeDeletionProducer;
 import com.taskscheduler.tasksapi.repository.TaskRepository;
 
 import jakarta.persistence.PersistenceException;
@@ -27,6 +29,9 @@ public class TaskService {
 
     @Autowired
     private TaskMapper mapper = Mappers.getMapper(TaskMapper.class);
+
+    @Autowired
+    private TaskCascadeDeletionProducer TaskCascadeDeletionProducer;
 
     public Task saveTask(NewTaskRequestDto task) {
         Task newTask = mapper.toEntity(task);
@@ -50,7 +55,12 @@ public class TaskService {
         if (!exists) {
             throw new IllegalArgumentException("Task not found");
         }
+
+        TaskCascadeDeletionSchedulesRequest request = new TaskCascadeDeletionSchedulesRequest(id);
+
         try {
+            Integer response = TaskCascadeDeletionProducer.deleteTaskSchedules(request);
+            log.info("TaskCascadeDeletionProducer response: {}", response);
             repository.deleteById(id);
         } catch (Exception e) {
             throw new RuntimeException("Error deleting task from database: {0}", e);
@@ -98,5 +108,9 @@ public class TaskService {
         Page<Task> tasks = repository.findAllByUserIdFiltered(userId, pageable, searchTerm);
 
         return tasks;
+    }
+
+    public boolean taskExists(UUID id) {
+        return repository.existsById(id);
     }
 }

@@ -1,0 +1,77 @@
+.topnav-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 64px;
+    gap: 10px;
+    background: rgb(20, 20, 25);
+}
+
+.menu-icon, .logout-icon {
+    cursor: pointer;
+    color: white;
+}
+
+.topnav-username{
+    color: white;
+    font-size: 20px;
+}
+
+.spacer{
+    flex-grow: 1;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.logo-title {
+    margin-left: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.logo-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: white;
+}
+
+.sidenav-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.sidenav-content {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidenav-drawer {
+    width: 200px;
+    background: rgb(20, 20, 25);
+}
+
+ul {
+    list-style-type: none;
+}
+
+.sidenav-item {
+    display: flex;
+    font-size: 20px;
+    height: 36px;
+    gap: 10px;
+    margin-top: 1em;
+    margin-left: 1em;
+}
